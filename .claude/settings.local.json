@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm --version)",
+      "Read(//Users/ninnnnk/.nvm/**)",
+      "Read(//Users/ninnnnk/**)"
+    ]
+  }
+}
