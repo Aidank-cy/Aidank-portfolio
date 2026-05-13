@@ -1,6 +1,6 @@
 export const siteConfig = {
   name: "Aidank",
-  avatar: "/avatar.png",
+  avatar: "/avatar.jpg",
   title: "Aidank Portfolio",
   description:
     "Aidank's personal project showcase.",
