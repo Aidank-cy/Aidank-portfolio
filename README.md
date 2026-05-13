@@ -1,34 +1,26 @@
 # Aidank Portfolio
 
-Static GitHub-driven portfolio site for Aidank.
+Personal project showcase, vibe coded with AI. Zero human-written code.
 
-## Overview
+## What This Is
 
-This project is a pure static personal project showcase built with Next.js App Router. Repository data is configured locally and fetched from the GitHub REST API during build and static generation. The visual direction follows a restrained Apple / Linear / Vercel inspired style.
+A harness engineering project — learning how to craft prompts, set constraints, and build feedback loops that let AI write every line of code, from architecture to deployment.
+
+The site pulls repository data from the GitHub API at build time and exports as a static site to GitHub Pages.
 
 ## Stack
 
-- Next.js 15
+- Next.js 15 (App Router, static export)
 - TypeScript
 - Tailwind CSS v4
 - Framer Motion
 - React Markdown
-- Static export for GitHub Pages
 
 ## Pages
 
-- `/`
-  - hero
-  - featured projects
-  - about
-  - footer links
-- `/projects`
-  - full repository list
-  - language filter
-- `/projects/[slug]`
-  - repository detail
-  - README rendering
-  - stats and language breakdown
+- `/` — hero, featured projects, about
+- `/projects` — all repositories, language filter
+- `/projects/[slug]` — repo detail, README rendering, stats
 
 ## Local Development
 
@@ -37,45 +29,30 @@ npm install
 npm run dev
 ```
 
-Open:
+Open `http://localhost:3000`.
 
-```text
-http://localhost:3000
-```
-
-## Build
+## Build & Deploy
 
 ```bash
 npm run build
 ```
 
-Static export output is generated in `out/`.
+Static output goes to `out/`. Push to `main` and GitHub Actions handles the rest.
 
 ## Editing Content
 
-Use [EDITING.md](/Users/ninnnnk/Aidank-portfolio/EDITING.md).
+See [EDITING.md](EDITING.md) for the full guide.
 
-The short version:
-
-- edit [config/site.ts](/Users/ninnnnk/Aidank-portfolio/config/site.ts) for site copy and social links
-- edit [config/projects.ts](/Users/ninnnnk/Aidank-portfolio/config/projects.ts) to add, remove, feature, or reorder projects
-- edit the GitHub repository itself to change repo description, README, homepage, and repository metadata shown on project pages
+Quick version:
+- `config/site.ts` — site copy and social links
+- `config/projects.ts` — add, remove, feature, or reorder projects
+- Edit the GitHub repo itself to change description, README, or homepage link
 
 ## Project Structure
 
-```text
-app/
-components/
-  layout/
-  sections/
-  ui/
-config/
-lib/
-.project-rules/
 ```
-
-## Notes
-
-- This repository is designed to stay compatible with static export.
-- GitHub data is fetched at build time, not in the browser.
-- GitHub Pages deployment runs through GitHub Actions.
+app/           # pages and layouts
+components/    # layout, sections, ui
+config/        # site copy and project list
+lib/           # GitHub API, types, utils
+```
