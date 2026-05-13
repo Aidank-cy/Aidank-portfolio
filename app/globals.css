@@ -1,14 +1,49 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
-  --background: #f7f6f1;
-  --foreground: #0a0a0a;
+  color-scheme: light;
+  --background: #f5f4ef;
+  --foreground: #101828;
+  --muted-foreground: #4b5565;
+  --panel: rgba(255, 255, 255, 0.8);
+  --border: rgba(16, 24, 40, 0.1);
+  --accent: #557cfa;
+  --accent-foreground: #f8fbff;
+  --ring: rgba(85, 124, 250, 0.28);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --background: #070b13;
+    --foreground: #f4f6fb;
+    --muted-foreground: #a8b3c7;
+    --panel: rgba(14, 20, 31, 0.8);
+    --border: rgba(255, 255, 255, 0.11);
+    --accent: #7c98ff;
+    --accent-foreground: #edf2ff;
+    --ring: rgba(124, 152, 255, 0.34);
+  }
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-panel: var(--panel);
+  --color-border: var(--border);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-ring: var(--ring);
+  --font-display: var(--font-space-grotesk);
+  --font-sans: var(--font-instrument-sans);
+  --shadow-card: 0 24px 80px rgba(16, 24, 40, 0.12);
 }
 
 * {
   box-sizing: border-box;
+  min-width: 0;
 }
 
 html {
@@ -17,12 +52,6 @@ html {
 
 body {
   margin: 0;
-  min-height: 100vh;
-  background:
-    radial-gradient(circle at top, rgba(255, 255, 255, 0.95), transparent 30%),
-    linear-gradient(180deg, #faf9f4 0%, #f2f1ea 100%);
-  color: var(--foreground);
-  font-family: "Avenir Next", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
 }
 
 a {
@@ -30,7 +59,11 @@ a {
   text-decoration: none;
 }
 
+button {
+  font: inherit;
+}
+
 ::selection {
-  background: #0a0a0a;
-  color: #f7f6f1;
+  background: color-mix(in srgb, var(--accent) 80%, transparent);
+  color: var(--accent-foreground);
 }

@@ -1,7 +1,13 @@
-import Link from "next/link";
+import type { Metadata } from "next";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { notFound } from "next/navigation";
-import { AvatarUploader } from "@/components/avatar-uploader";
-import { getProjectBySlug, profile, projects } from "@/lib/site-data";
+import { Container } from "@/components/layout/Container";
+import { Button } from "@/components/ui/Button";
+import { FadeIn } from "@/components/ui/FadeIn";
+import { Tag } from "@/components/ui/Tag";
+import { getAllProjects, getProjectBySlug } from "@/lib/github";
+import { formatDate, formatNumber } from "@/lib/utils";
 
 type ProjectDetailPageProps = {
   params: Promise<{
@@ -9,114 +15,193 @@ type ProjectDetailPageProps = {
   }>;
 };
 
-export function generateStaticParams() {
-  return projects.map((project) => ({
-    slug: project.slug,
-  }));
+export async function generateStaticParams() {
+  const projects = await getAllProjects();
+
+  return projects.map((project) => ({ slug: project.slug }));
+}
+
+export async function generateMetadata({
+  params,
+}: ProjectDetailPageProps) {
+  const { slug } = await params;
+  const project = await getProjectBySlug(slug);
+
+  if (!project) {
+    return {
+      title: "Project Not Found",
+    } satisfies Metadata;
+  }
+
+  return {
+    title: project.name,
+    description:
+      project.description ||
+      `Read repository details, README, and language breakdown for ${project.fullName}.`,
+    openGraph: {
+      title: project.name,
+      description:
+        project.description ||
+        `Repository details for ${project.fullName} built statically from GitHub.`,
+      url: `/projects/${project.slug}`,
+    },
+  } satisfies Metadata;
 }
 
 export default async function ProjectDetailPage({
   params,
 }: ProjectDetailPageProps) {
   const { slug } = await params;
-  const project = getProjectBySlug(slug);
+  const project = await getProjectBySlug(slug);
 
   if (!project) {
     notFound();
   }
 
   return (
-    <main className="relative min-h-screen overflow-hidden px-6 py-6 md:px-10 md:py-10">
-      <div className="pointer-events-none absolute inset-0 bg-grid-fade bg-[size:42px_42px] opacity-[0.12]" />
-      <div className="pointer-events-none absolute right-0 top-0 h-[520px] w-[520px] rounded-full bg-[radial-gradient(circle,_rgba(255,255,255,0.92),_rgba(255,255,255,0))]" />
-
-      <article className="relative mx-auto max-w-5xl rounded-[2.5rem] border border-white/70 bg-white/72 px-6 py-10 shadow-float backdrop-blur-xl md:px-10 md:py-14">
-        <div className="flex flex-col gap-8 lg:flex-row lg:items-center lg:justify-between">
-          <div className="space-y-5">
-            <div className="flex flex-wrap gap-3">
-              <Link
-                href="/"
-                className="rounded-full border border-ink/10 px-4 py-2 text-xs uppercase tracking-[0.24em] text-ink/55 transition-colors duration-300 hover:border-ink hover:text-ink"
-              >
-                Dashboard
-              </Link>
-              <Link
-                href="/projects"
-                className="rounded-full border border-ink/10 px-4 py-2 text-xs uppercase tracking-[0.24em] text-ink/55 transition-colors duration-300 hover:border-ink hover:text-ink"
-              >
-                All Projects
-              </Link>
-            </div>
-            <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-ink/45">
-                {profile.name}
-              </p>
-              <h1 className="mt-4 font-display text-5xl tracking-tight md:text-6xl">
-                {project.title}
-              </h1>
-              <p className="mt-4 max-w-2xl text-base leading-7 text-ink/65 md:text-lg">
-                {project.highlight}
-              </p>
-            </div>
+    <main className="pb-28 pt-10 md:pb-36 md:pt-16">
+      <Container>
+        <FadeIn className="max-w-4xl">
+          <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
+            Repository Detail
+          </p>
+          <h1 className="mt-6 font-display text-5xl font-medium tracking-[-0.05em] text-balance text-foreground sm:text-6xl lg:text-7xl">
+            {project.name}
+          </h1>
+          <p className="mt-6 max-w-3xl text-base leading-8 text-muted-foreground sm:text-lg">
+            {project.description || "No repository description was provided."}
+          </p>
+          <div className="mt-8 flex flex-wrap gap-3">
+            <Button href={project.url} external>
+              View on GitHub
+            </Button>
+            {project.homepage ? (
+              <Button href={project.homepage} external variant="secondary">
+                Open Live Link
+              </Button>
+            ) : null}
           </div>
-          <AvatarUploader />
-        </div>
+        </FadeIn>
 
-        <div className="mt-14 grid gap-8 border-t border-ink/8 pt-10 lg:grid-cols-[0.7fr_1.3fr]">
-          <aside className="space-y-8">
-            <div>
-              <p className="text-xs uppercase tracking-[0.28em] text-ink/45">
-                项目信息
-              </p>
-              <div className="mt-5 space-y-5">
-                <div>
-                  <p className="text-sm text-ink/45">类别</p>
-                  <p className="mt-1 text-base text-ink">{project.category}</p>
+        <section className="mt-14 grid gap-6 lg:grid-cols-[22rem_minmax(0,1fr)]">
+          <FadeIn className="rounded-[2rem] border border-border bg-panel p-6 shadow-card backdrop-blur-sm md:p-8">
+            <div className="space-y-8">
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                  Repository
+                </p>
+                <p className="mt-3 text-lg text-foreground">
+                  {project.fullName}
+                </p>
+              </div>
+
+              <div className="grid grid-cols-2 gap-4">
+                <div className="rounded-2xl border border-border bg-background p-4">
+                  <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                    Stars
+                  </p>
+                  <p className="mt-3 text-2xl font-medium text-foreground">
+                    {formatNumber(project.stars)}
+                  </p>
                 </div>
-                <div>
-                  <p className="text-sm text-ink/45">年份</p>
-                  <p className="mt-1 text-base text-ink">{project.year}</p>
+                <div className="rounded-2xl border border-border bg-background p-4">
+                  <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                    Forks
+                  </p>
+                  <p className="mt-3 text-2xl font-medium text-foreground">
+                    {formatNumber(project.forks)}
+                  </p>
                 </div>
-                <div>
-                  <p className="text-sm text-ink/45">技术栈</p>
-                  <div className="mt-3 flex flex-wrap gap-2">
-                    {project.techStack.map((item) => (
-                      <span
-                        key={item}
-                        className="rounded-full border border-ink/10 px-3 py-2 text-xs uppercase tracking-[0.18em] text-ink/55"
-                      >
-                        {item}
-                      </span>
-                    ))}
-                  </div>
+                <div className="rounded-2xl border border-border bg-background p-4">
+                  <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                    Issues
+                  </p>
+                  <p className="mt-3 text-2xl font-medium text-foreground">
+                    {formatNumber(project.openIssues)}
+                  </p>
+                </div>
+                <div className="rounded-2xl border border-border bg-background p-4">
+                  <p className="text-xs uppercase tracking-[0.24em] text-muted-foreground">
+                    Updated
+                  </p>
+                  <p className="mt-3 text-sm leading-6 text-foreground">
+                    {formatDate(project.updatedAt)}
+                  </p>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                  Primary Language
+                </p>
+                <div className="mt-4">
+                  <Tag>{project.primaryLanguage || "Unknown"}</Tag>
+                </div>
+              </div>
+
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                  Language Breakdown
+                </p>
+                <div className="mt-4 space-y-3">
+                  {project.languages.length ? (
+                    project.languages.map((language) => (
+                      <div key={language.name} className="space-y-2">
+                        <div className="flex items-center justify-between gap-4 text-sm text-foreground">
+                          <span>{language.name}</span>
+                          <span className="text-muted-foreground">
+                            {language.percentage}%
+                          </span>
+                        </div>
+                        <div className="h-2 overflow-hidden rounded-full bg-border">
+                          <div
+                            className="h-full rounded-full bg-accent"
+                            style={{ width: `${language.percentage}%` }}
+                          />
+                        </div>
+                      </div>
+                    ))
+                  ) : (
+                    <p className="text-sm leading-7 text-muted-foreground">
+                      No language statistics were returned by GitHub for this
+                      repository.
+                    </p>
+                  )}
                 </div>
               </div>
             </div>
-          </aside>
+          </FadeIn>
 
-          <div className="space-y-6">
-            <div className="rounded-[2rem] border border-ink/8 bg-mist/60 p-6 md:p-8">
-              <p className="text-xs uppercase tracking-[0.3em] text-ink/45">
-                Project Story
-              </p>
-              <div className="prose mt-6 max-w-none prose-p:text-ink/70">
-                {project.description.map((paragraph) => (
-                  <p key={paragraph}>{paragraph}</p>
-                ))}
+          <FadeIn
+            className="rounded-[2rem] border border-border bg-panel p-6 shadow-card backdrop-blur-sm md:p-8"
+            delay={0.08}
+          >
+            <div className="flex items-center justify-between gap-4">
+              <div>
+                <p className="text-xs uppercase tracking-[0.28em] text-muted-foreground">
+                  README
+                </p>
+                <p className="mt-3 text-sm leading-7 text-muted-foreground">
+                  Rendered statically from GitHub during the build.
+                </p>
               </div>
             </div>
 
-            <div className="rounded-[2rem] border border-ink/8 bg-ink p-6 text-white md:p-8">
-              <p className="text-xs uppercase tracking-[0.3em] text-white/55">
-                Summary
+            {project.readme ? (
+              <div className="prose prose-neutral mt-10 max-w-none prose-headings:font-display prose-headings:tracking-[-0.03em] prose-a:text-accent prose-code:rounded prose-code:bg-border prose-code:px-1 prose-code:py-0.5 prose-pre:rounded-3xl prose-pre:border prose-pre:border-border prose-pre:bg-slate-950 prose-pre:text-slate-100 dark:prose-invert">
+                <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                  {project.readme}
+                </ReactMarkdown>
+              </div>
+            ) : (
+              <p className="mt-10 text-base leading-8 text-muted-foreground">
+                This repository does not expose a readable README through the
+                GitHub API.
               </p>
-              <p className="mt-5 max-w-2xl text-lg leading-8 text-white/85">
-                {project.summary}
-              </p>
-            </div>
-          </div>
-        </div>
-      </article>
+            )}
+          </FadeIn>
+        </section>
+      </Container>
     </main>
   );
 }
