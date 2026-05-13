@@ -19,5 +19,9 @@ export const siteConfig = {
       label: "Source",
       href: "https://github.com/Aidank-cy/Aidank-portfolio",
     },
+    { 
+      label: "Email",
+      href: "1794291485@qq.com",
+    },
   ],
 } as const;
