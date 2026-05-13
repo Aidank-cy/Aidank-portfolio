@@ -7,7 +7,7 @@ import { getAllProjects } from "@/lib/github";
 export const metadata: Metadata = {
   title: "Projects",
   description:
-    "Browse all configured GitHub repositories for Aidank, filter by language, and inspect the latest static project metadata.",
+    "All of Aidank's GitHub projects.",
 };
 
 export default async function ProjectsPage() {
@@ -24,9 +24,7 @@ export default async function ProjectsPage() {
             Every configured repository, prebuilt from GitHub.
           </h1>
           <p className="mt-6 max-w-2xl text-base leading-8 text-muted-foreground sm:text-lg">
-            The list below is generated from a local project config, enriched at
-            build time through the GitHub REST API, and exported as fully static
-            pages.
+            Project data pulled from GitHub at build time.
           </p>
         </FadeIn>
 

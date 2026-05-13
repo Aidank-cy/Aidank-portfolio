@@ -2,6 +2,32 @@
 
 This guide explains how to update copy, social links, and project entries for the portfolio without changing the core implementation.
 
+## How To View The Website
+
+### View The Live Website
+
+Open the deployed GitHub Pages site:
+
+```text
+https://aidank-cy.github.io/Aidank-portfolio
+```
+
+### View The Local Website
+
+Start the local development server:
+
+```bash
+npm run dev
+```
+
+Then open:
+
+```text
+http://localhost:3000
+```
+
+If the dev server is already running, just refresh the browser after saving your changes.
+
 ## What To Edit Most Often
 
 ### Site Copy And Social Links
@@ -141,28 +167,26 @@ Edit:
 
 - `config/projects.ts` → update `order`
 
-## How To Preview Changes Locally
+## How To Update The Website After Editing
 
-If the dev server is already running:
+### Step 1: Check Changes Locally
 
-- save the file
-- refresh the browser if needed
+- save your file changes
+- make sure `npm run dev` is running
+- open `http://localhost:3000`
+- refresh and confirm the page looks correct
 
-If it is not running:
+If you changed GitHub repository content such as:
 
-```bash
-npm run dev
-```
+- repository description
+- `README.md`
+- repository homepage
 
-Then open:
+then restart the local dev server or run a fresh build if the data does not refresh as expected.
 
-```text
-http://localhost:3000
-```
+### Step 2: Push The Changes
 
-## How To Update The Live Site
-
-After editing:
+After editing and checking locally:
 
 ```bash
 git add .
@@ -171,6 +195,20 @@ git push origin main
 ```
 
 GitHub Actions will then rebuild and deploy the static site to GitHub Pages.
+
+### Step 3: Check The Deployed Website
+
+After the GitHub Actions workflow finishes, open:
+
+```text
+https://aidank-cy.github.io/Aidank-portfolio
+```
+
+If you do not see the latest update immediately:
+
+- wait a little for GitHub Pages deployment to finish
+- hard refresh the browser
+- confirm the latest workflow on GitHub completed successfully
 
 ## Important Notes
 

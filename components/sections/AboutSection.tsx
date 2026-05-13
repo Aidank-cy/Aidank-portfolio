@@ -12,7 +12,7 @@ export function AboutSection() {
               About
             </p>
             <h2 className="mt-6 font-display text-4xl font-medium tracking-[-0.05em] text-foreground sm:text-5xl">
-              Product-minded engineering with a preference for clear systems.
+              About me
             </h2>
             <p className="mt-6 text-base leading-8 text-muted-foreground sm:text-lg">
               {siteConfig.about}

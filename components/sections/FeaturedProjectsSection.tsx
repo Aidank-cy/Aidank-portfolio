@@ -23,12 +23,8 @@ export function FeaturedProjectsSection({
               Featured Projects
             </p>
             <h2 className="mt-6 font-display text-4xl font-medium tracking-[-0.05em] text-foreground sm:text-5xl lg:text-6xl">
-              A small, deliberate slice of current work.
+              Things I've been working on.
             </h2>
-            <p className="mt-5 text-base leading-8 text-muted-foreground sm:text-lg">
-              Repositories are configured locally, enriched from GitHub at build
-              time, and exported as static pages for fast browsing on any device.
-            </p>
           </div>
           <Button href="/projects" variant="secondary">
             See All Projects

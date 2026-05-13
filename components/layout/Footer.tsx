@@ -12,8 +12,7 @@ export function Footer() {
                 {siteConfig.title}
               </p>
               <p className="mt-3 text-sm leading-7 text-muted-foreground">
-                Static export, GitHub-sourced data, and a deliberately restrained
-                interface system.
+                Vibe Coding with AI. Powered by Next.js and GitHub API.
               </p>
             </div>
 

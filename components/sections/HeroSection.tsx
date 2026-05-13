@@ -11,7 +11,7 @@ const items = [
     className: "",
     content: (
       <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
-        Static GitHub Portfolio
+        Vibe Coding with AI
       </p>
     ),
   },
@@ -20,7 +20,7 @@ const items = [
     className: "mt-6",
     content: (
       <h1 className="max-w-5xl font-display text-5xl font-medium tracking-[-0.06em] text-balance text-foreground sm:text-6xl lg:text-[5.5rem]">
-        Building calm product surfaces from clean repository signals.
+        A portfolio site, built entirely with AI.
       </h1>
     ),
   },
@@ -78,9 +78,6 @@ export function HeroSection() {
               className="mt-10 flex flex-wrap gap-3"
             >
               <Button href="/projects">View Projects</Button>
-              <Button href="#featured-projects" variant="secondary">
-                Featured Work
-              </Button>
             </motion.div>
           </motion.div>
         </div>
