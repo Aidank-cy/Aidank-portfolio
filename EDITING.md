@@ -32,7 +32,7 @@ If the dev server is already running, just refresh the browser after saving your
 
 ### Site Copy And Social Links
 
-Edit [config/site.ts](/Users/ninnnnk/Aidank-portfolio/config/site.ts).
+Edit [config/site.ts](config/site.ts).
 
 Main fields:
 
@@ -86,7 +86,7 @@ Avatar notes:
 
 ### Add, Remove, Or Reorder Projects
 
-Edit [config/projects.ts](/Users/ninnnnk/Aidank-portfolio/config/projects.ts).
+Edit [config/projects.ts](config/projects.ts).
 
 Each project entry controls one GitHub repository:
 
