@@ -21,7 +21,7 @@ export const siteConfig = {
     },
     { 
       label: "Email",
-      href: "1794291485@qq.com",
+      href: "mailto:1794291485@qq.com",
     },
   ],
 } as const;
