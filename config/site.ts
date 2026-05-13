@@ -1,6 +1,8 @@
+import { basePath } from "@/lib/basePath";
+
 export const siteConfig = {
   name: "Aidank",
-  avatar: "/avatar.jpg",
+  avatar: `${basePath}/avatar.jpg`,
   title: "Aidank Portfolio",
   description:
     "Aidank's personal project showcase.",
