@@ -1,8 +1,8 @@
 "use client";
 
-import { AnimatePresence, MotionConfig, motion } from "framer-motion";
 import { usePathname } from "next/navigation";
 import type { ReactNode } from "react";
+import { useFramerMotion } from "@/lib/useFramerMotion";
 
 type PageTransitionProps = {
   children: ReactNode;
@@ -10,6 +10,13 @@ type PageTransitionProps = {
 
 export function PageTransition({ children }: PageTransitionProps) {
   const pathname = usePathname();
+  const motionModule = useFramerMotion();
+
+  if (!motionModule) {
+    return <>{children}</>;
+  }
+
+  const { AnimatePresence, MotionConfig, motion } = motionModule;
 
   return (
     <MotionConfig reducedMotion="user">

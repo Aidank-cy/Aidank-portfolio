@@ -14,7 +14,7 @@
 }
 
 @media (prefers-color-scheme: dark) {
-  :root {
+  html:not(.light):not(.dark) {
     color-scheme: dark;
     --background: #070b13;
     --foreground: #f4f6fb;
@@ -25,6 +25,30 @@
     --accent-foreground: #edf2ff;
     --ring: rgba(124, 152, 255, 0.34);
   }
+}
+
+html.light {
+  color-scheme: light;
+  --background: #f5f4ef;
+  --foreground: #101828;
+  --muted-foreground: #4b5565;
+  --panel: rgba(255, 255, 255, 0.8);
+  --border: rgba(16, 24, 40, 0.1);
+  --accent: #557cfa;
+  --accent-foreground: #f8fbff;
+  --ring: rgba(85, 124, 250, 0.28);
+}
+
+html.dark {
+  color-scheme: dark;
+  --background: #070b13;
+  --foreground: #f4f6fb;
+  --muted-foreground: #a8b3c7;
+  --panel: rgba(14, 20, 31, 0.8);
+  --border: rgba(255, 255, 255, 0.11);
+  --accent: #7c98ff;
+  --accent-foreground: #edf2ff;
+  --ring: rgba(124, 152, 255, 0.34);
 }
 
 @theme inline {
@@ -48,6 +72,18 @@
 
 html {
   scroll-behavior: smooth;
+}
+
+html.text-sm {
+  font-size: 14px;
+}
+
+html.text-base {
+  font-size: 16px;
+}
+
+html.text-lg {
+  font-size: 18px;
 }
 
 body {

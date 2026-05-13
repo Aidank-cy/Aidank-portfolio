@@ -1,6 +1,7 @@
 # Content Rules
 
 - Site-level profile and social content should live in `config/site.ts`.
+- Site-level identity assets such as the header avatar path should live in `config/site.ts`.
 - Project source configuration should live in `config/projects.ts`.
 - The configured project list is the source of truth for which repositories appear on the site.
 - Human-facing editing instructions should live in the root `EDITING.md` file and stay aligned with the real config shape.

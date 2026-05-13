@@ -23,7 +23,7 @@ export function FeaturedProjectsSection({
               Featured Projects
             </p>
             <h2 className="mt-6 font-display text-4xl font-medium tracking-[-0.05em] text-foreground sm:text-5xl lg:text-6xl">
-              Things I've been working on.
+              Things I&apos;ve been working on.
             </h2>
           </div>
           <Button href="/projects" variant="secondary">

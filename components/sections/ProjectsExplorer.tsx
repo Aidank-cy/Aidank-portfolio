@@ -1,9 +1,9 @@
 "use client";
 
 import { useState } from "react";
-import { motion, useReducedMotion } from "framer-motion";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ProjectCard } from "@/components/ui/ProjectCard";
+import { useFramerMotion, usePrefersReducedMotion } from "@/lib/useFramerMotion";
 import type { ProjectSummary } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -21,12 +21,23 @@ export function ProjectsExplorer({ projects }: ProjectsExplorerProps) {
     ),
   ];
   const [activeLanguage, setActiveLanguage] = useState("All");
-  const prefersReducedMotion = useReducedMotion();
+  const motionModule = useFramerMotion();
+  const prefersReducedMotion = usePrefersReducedMotion();
 
   const filteredProjects =
     activeLanguage === "All"
       ? projects
       : projects.filter((project) => project.primaryLanguage === activeLanguage);
+
+  const projectsGrid = (
+    <>
+      {filteredProjects.map((project, index) => (
+        <FadeIn key={project.slug} delay={index * 0.04}>
+          <ProjectCard project={project} />
+        </FadeIn>
+      ))}
+    </>
+  );
 
   return (
     <div className="mt-14">
@@ -54,16 +65,18 @@ export function ProjectsExplorer({ projects }: ProjectsExplorerProps) {
         </div>
       </FadeIn>
 
-      <motion.div
-        layout={!prefersReducedMotion}
-        className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3"
-      >
-        {filteredProjects.map((project, index) => (
-          <FadeIn key={project.slug} delay={index * 0.04}>
-            <ProjectCard project={project} />
-          </FadeIn>
-        ))}
-      </motion.div>
+      {prefersReducedMotion || !motionModule ? (
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {projectsGrid}
+        </div>
+      ) : (
+        <motionModule.motion.div
+          layout
+          className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3"
+        >
+          {projectsGrid}
+        </motionModule.motion.div>
+      )}
     </div>
   );
 }

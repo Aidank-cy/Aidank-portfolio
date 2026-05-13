@@ -1,9 +1,9 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { siteConfig } from "@/config/site";
+import { useFramerMotion, usePrefersReducedMotion } from "@/lib/useFramerMotion";
 
 const items = [
   {
@@ -36,15 +36,40 @@ const items = [
 ];
 
 export function HeroSection() {
-  const prefersReducedMotion = useReducedMotion();
+  const motionModule = useFramerMotion();
+  const prefersReducedMotion = usePrefersReducedMotion();
+
+  if (prefersReducedMotion || !motionModule) {
+    return (
+      <section className="pb-24 pt-16 md:pb-32 md:pt-24 lg:pb-36">
+        <Container>
+          <div className="rounded-[2.5rem] border border-border bg-panel px-6 py-12 shadow-card backdrop-blur-md md:px-10 md:py-16 lg:px-14 lg:py-20">
+            <div className="max-w-5xl">
+              {items.map((item) => (
+                <div key={item.key} className={item.className}>
+                  {item.content}
+                </div>
+              ))}
+
+              <div className="mt-10 flex flex-wrap gap-3">
+                <Button href="/projects">View Projects</Button>
+              </div>
+            </div>
+          </div>
+        </Container>
+      </section>
+    );
+  }
+
+  const MotionDiv = motionModule.motion.div;
 
   return (
     <section className="pb-24 pt-16 md:pb-32 md:pt-24 lg:pb-36">
       <Container>
         <div className="rounded-[2.5rem] border border-border bg-panel px-6 py-12 shadow-card backdrop-blur-md md:px-10 md:py-16 lg:px-14 lg:py-20">
-          <motion.div
-            initial={prefersReducedMotion ? false : "hidden"}
-            animate={prefersReducedMotion ? undefined : "show"}
+          <MotionDiv
+            initial="hidden"
+            animate="show"
             variants={{
               hidden: {},
               show: {
@@ -56,7 +81,7 @@ export function HeroSection() {
             className="max-w-5xl"
           >
             {items.map((item) => (
-              <motion.div
+              <MotionDiv
                 key={item.key}
                 variants={{
                   hidden: { opacity: 0, y: 20 },
@@ -66,10 +91,10 @@ export function HeroSection() {
                 className={item.className}
               >
                 {item.content}
-              </motion.div>
+              </MotionDiv>
             ))}
 
-            <motion.div
+            <MotionDiv
               variants={{
                 hidden: { opacity: 0, y: 20 },
                 show: { opacity: 1, y: 0 },
@@ -78,8 +103,8 @@ export function HeroSection() {
               className="mt-10 flex flex-wrap gap-3"
             >
               <Button href="/projects">View Projects</Button>
-            </motion.div>
-          </motion.div>
+            </MotionDiv>
+          </MotionDiv>
         </div>
       </Container>
     </section>

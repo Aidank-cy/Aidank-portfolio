@@ -31,7 +31,9 @@
 
 - Framer Motion is the required default animation system for page load, scroll reveal, hover, and page transitions.
 - Do not introduce another animation library for standard UI motion work.
+- In this App Router codebase, keep Framer Motion behind small client boundaries and prefer client-side loading helpers when direct top-level imports cause Next development chunk instability.
 - Any motion-heavy interaction must check `prefers-reduced-motion` and provide a reduced or disabled path.
+- Modal and lightbox-style interactions must support keyboard dismissal and should allow overlay click to close.
 - Motion should remain restrained and should not override usability or readability.
 - Use `whileInView` for scroll-triggered reveal patterns when appropriate.
 - Use staggered entrance animation for hero and section content when it improves hierarchy.

@@ -1,5 +1,6 @@
 export const siteConfig = {
   name: "Aidank",
+  avatar: "/avatar.png",
   title: "Aidank Portfolio",
   description:
     "Aidank's personal project showcase.",
@@ -8,8 +9,8 @@ export const siteConfig = {
   intro:
     "I don't write code. I architect the Artificial Intelligence that does.",
   about:
-    "CS grad student at Shanghai Jiao Tong University. This site is a harness engineering project — learning how to craft prompts, set constraints, and build feedback loops that let AI write every line of code, clean, error-free, and up to standard. Zero human-written code, from architecture to deployment." ,
-    socials: [
+    "CS grad student at Shanghai Jiao Tong University. This site is a harness engineering project — learning how to craft prompts, set constraints, and build feedback loops that let AI write every line of code, clean, error-free, and up to standard. Zero human-written code, from architecture to deployment.",
+  socials: [
     {
       label: "GitHub",
       href: "https://github.com/Aidank-cy",

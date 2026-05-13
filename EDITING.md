@@ -38,6 +38,8 @@ Main fields:
 
 - `name`
   - Site owner name shown in navigation and metadata
+- `avatar`
+  - Header avatar image path, usually a file under `public/`
 - `title`
   - Site title used in footer and metadata
 - `description`
@@ -58,6 +60,7 @@ Example:
 ```ts
 export const siteConfig = {
   name: "Aidank",
+  avatar: "/avatar.png",
   title: "Aidank Portfolio",
   description: "A static GitHub-driven portfolio...",
   url: "https://aidank-cy.github.io/Aidank-portfolio",
@@ -70,6 +73,16 @@ export const siteConfig = {
   ],
 } as const;
 ```
+
+Avatar notes:
+
+- Put the avatar file in `public/`, for example `public/avatar.png`
+- Reference it from `config/site.ts` as `avatar: "/avatar.png"`
+- The header avatar is clickable and opens a larger preview modal
+- Use a square image for best cropping in the circular header frame
+- The header displays it at `32x32`, so large source files work but increase download size
+- Recommended source size: `256x256` to `1024x1024`
+- Recommended file size: keep it under about `200 KB` when possible
 
 ### Add, Remove, Or Reorder Projects
 
@@ -147,6 +160,19 @@ socials: [
   { label: "Email", href: "mailto:you@example.com" },
   { label: "X", href: "https://x.com/your-handle" },
 ];
+```
+
+### Change Header Avatar
+
+Edit:
+
+- `config/site.ts` → `avatar`
+- `public/avatar.png` or another file under `public/`
+
+Example:
+
+```ts
+avatar: "/avatar.png",
 ```
 
 ### Feature A Project On The Homepage

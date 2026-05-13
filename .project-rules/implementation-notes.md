@@ -42,6 +42,7 @@ These notes capture practical mistakes and corrections from previous implementat
 - Framer Motion is the default motion system here.
 - Always provide a reduced-motion-safe path by respecting `prefers-reduced-motion`.
 - Put global motion wrappers such as page transitions in one layout-level client boundary instead of duplicating them across pages.
+- If Next development output starts missing Motion-related vendor chunks, move direct Framer Motion imports behind a client-side loader hook instead of pulling the package into the server bundle graph.
 
 ## Content And Fallback Lessons
 

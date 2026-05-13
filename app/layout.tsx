@@ -3,6 +3,7 @@ import { Instrument_Sans, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { PageTransition } from "@/components/layout/PageTransition";
+import { FloatingPanel } from "@/components/ui/FloatingPanel";
 import { siteConfig } from "@/config/site";
 import "./globals.css";
 
@@ -50,6 +51,7 @@ export default function RootLayout({
           <Header />
           <PageTransition>{children}</PageTransition>
           <Footer />
+          <FloatingPanel />
         </div>
       </body>
     </html>

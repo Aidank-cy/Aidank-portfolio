@@ -44,8 +44,9 @@ Static output goes to `out/`. Push to `main` and GitHub Actions handles the rest
 See [EDITING.md](EDITING.md) for the full guide.
 
 Quick version:
-- `config/site.ts` — site copy and social links
+- `config/site.ts` — site copy, avatar path, and social links
 - `config/projects.ts` — add, remove, feature, or reorder projects
+- `public/` — static assets such as the clickable header avatar
 - Edit the GitHub repo itself to change description, README, or homepage link
 
 ## Project Structure
@@ -55,4 +56,5 @@ app/           # pages and layouts
 components/    # layout, sections, ui
 config/        # site copy and project list
 lib/           # GitHub API, types, utils
+public/        # static assets such as avatar images
 ```
