@@ -26,7 +26,7 @@
 
 ## Validation
 
-- For non-trivial code changes, run `npm run lint`.
+- For non-trivial code changes, run `npm run lint` and `npm run typecheck`.
 - For changes affecting routes, config, export behavior, or page structure, prefer running `npm run build` as well.
 - For documentation-only changes, command execution is optional.
 - For GitHub data features, verify the build path can work with and without `GITHUB_TOKEN`.

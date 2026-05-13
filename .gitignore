@@ -1,6 +1,32 @@
+# Build output and dependencies
 .next
 node_modules
 out
 dist
+coverage
+*.tsbuildinfo
+
+# Logs
 *.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Local environment and secrets
+.env
+.env.*
+!.env.example
+!.env.sample
+
+# Local editor and OS metadata
 .DS_Store
+.idea
+.vscode
+
+# Local deployment tooling state
+.vercel
+
+# Mutable local harness runtime notes
+.harness/progress.md
+.harness/learning-log.md

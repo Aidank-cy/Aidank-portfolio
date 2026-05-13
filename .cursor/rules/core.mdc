@@ -1,0 +1,13 @@
+---
+description: Core harness rules for Aidank-portfolio
+globs:
+  - "**/*"
+alwaysApply: true
+---
+
+- Read `AGENTS.md` first.
+- Never edit `.next/` or `out/`; update source files and rebuild.
+- Keep the site compatible with `output: "export"` and GitHub Pages deployment.
+- Keep repository data in `lib/github.ts` and build-time generation, not client fetches.
+- Prefer `config/site.ts` and `config/projects.ts` as the content source of truth.
+- Run `npm run lint`, `npm run typecheck`, and, when relevant, `npm run build`.

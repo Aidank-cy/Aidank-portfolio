@@ -1,71 +1,39 @@
 # AGENTS.md
 
-This file is the entry guidance for Codex in this repository. Do not treat it as the full rulebook. The detailed project rules live under `.project-rules/`.
+## Project Overview
+- `Aidank-portfolio` is a static personal showcase built with Next.js 15 App Router, TypeScript, Tailwind v4, and Framer Motion.
+- Repository data is fetched in `lib/github.ts` during build time and exported to `out/` for GitHub Pages.
 
-## How To Use This File
+## Commands
+- Install: `npm install`
+- Dev: `npm run dev`
+- Lint: `npm run lint`
+- Typecheck: `npm run typecheck`
+- Build: `npm run build`
 
-- Start here first.
-- Do not read every rule file by default.
-- Read only the relevant files in `.project-rules/` for the task at hand.
-- If code and docs disagree, trust the actual codebase first, then update the rules if needed.
+## Always
+- Start with `git status --short`, `package.json`, `next.config.ts`, and `.project-rules/README.md`.
+- Read only the rule files that match the task; if docs drift from code, trust the code and then fix the docs.
+- Keep static export compatibility: `output: "export"`, deterministic project routes, and no request-time server assumptions.
+- Treat `config/site.ts`, `config/projects.ts`, and `lib/github.ts` as the content and GitHub data source of truth.
+- Keep interactive UI inside small client boundaries; keep GitHub fetching in build-time or server-side generation code.
+- Run `npm run lint` and `npm run typecheck` after non-trivial edits; run `npm run build` for route, config, export, workflow, or data-flow changes.
+- Use the harness files under `.harness/`, `hooks/`, and `skills/` instead of inventing parallel workflow docs. [INFERRED]
 
-## Always Check Before Editing
+## Ask First
+- Before adding dependencies, changing deployment behavior, or modifying GitHub API contracts.
+- Before changing `app/projects/[slug]/`, `lib/github.ts`, `next.config.ts`, or `.github/workflows/`.
+- Before rewriting project rules, deleting content, or touching files outside the requested scope.
 
-- `package.json`
-- `next.config.ts`
-- `git status --short`
-- `.project-rules/README.md`
-- `EDITING.md` if the task is about content, links, or project entries
-- The specific files you are about to change
+## Never
+- Do not edit generated output in `.next/` or `out/`; change source files and rebuild.
+- Do not move GitHub fetching into client components or browser-visible environment variables.
+- Do not add backend APIs, auth, databases, or CMS flows unless the product scope changes.
+- Do not silence lint or type errors with `eslint-disable`, `@ts-ignore`, or similar suppressions.
+- Do not revert dirty worktree files you did not create unless the user explicitly asks.
 
-## Rule Map
-
-- Project overview: `.project-rules/project-overview.md`
-- Common commands: `.project-rules/commands.md`
-- Code style: `.project-rules/code-style.md`
-- Frontend standards: `.project-rules/frontend-standards.md`
-- API rules: `.project-rules/api-rules.md`
-- GitHub data rules: `.project-rules/github-data.md`
-- Directory structure: `.project-rules/structure.md`
-- Development rules: `.project-rules/development-rules.md`
-- Content rules: `.project-rules/content.md`
-- Human editing guide: `EDITING.md`
-- Visual rules: `.project-rules/visual.md`
-- SEO and deployment: `.project-rules/seo-deployment.md`
-- Quality gates: `.project-rules/quality-gates.md`
-- Git workflow: `.project-rules/git-workflow.md`
-
-## Which Rules To Read
-
-- UI, layout, interaction, visual polish:
-  - `.project-rules/visual.md`
-  - `.project-rules/code-style.md`
-  - `.project-rules/frontend-standards.md`
-  - `.project-rules/structure.md`
-- Data content, profile, projects:
-  - `EDITING.md`
-  - `.project-rules/content.md`
-  - `.project-rules/github-data.md`
-  - `.project-rules/structure.md`
-- API or server boundary work:
-  - `.project-rules/api-rules.md`
-  - `.project-rules/github-data.md`
-  - `.project-rules/development-rules.md`
-  - `.project-rules/quality-gates.md`
-- Build, export, routing, config:
-  - `.project-rules/project-overview.md`
-  - `.project-rules/development-rules.md`
-  - `.project-rules/seo-deployment.md`
-  - `.project-rules/quality-gates.md`
-- General implementation work:
-  - `.project-rules/code-style.md`
-  - `.project-rules/frontend-standards.md`
-  - `.project-rules/development-rules.md`
-  - `.project-rules/git-workflow.md`
-
-## Non-Negotiables
-
-- Do not delete business code or change unrelated files.
-- Keep the frontend compatible with static export.
-- Do not introduce backend, database, or login flows unless the user explicitly changes the project scope.
-- After edits, run the relevant checks described in `.project-rules/quality-gates.md` when applicable.
+## Architecture
+- `app/` owns routes and page composition.
+- `components/layout`, `components/sections`, and `components/ui` own shell, sections, and primitives.
+- `config/` stores site and project metadata; `lib/` owns shared helpers and GitHub fetch logic.
+- `.project-rules/` holds detailed conventions; `.harness/` and `skills/` hold AI workflow scaffolding.
