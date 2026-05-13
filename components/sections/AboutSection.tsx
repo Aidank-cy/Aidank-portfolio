@@ -7,7 +7,7 @@ export function AboutSection() {
     <section className="pb-24 pt-8 md:pb-32 md:pt-12 lg:pb-36">
       <Container>
         <FadeIn className="rounded-[2.5rem] border border-border bg-panel px-6 py-10 shadow-card backdrop-blur-sm md:px-10 md:py-14">
-          <div className="max-w-3xl">
+          <div className="max-w-6xl">
             <p className="text-xs uppercase tracking-[0.32em] text-muted-foreground">
               About
             </p>

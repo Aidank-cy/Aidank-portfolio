@@ -6,10 +6,10 @@ export const siteConfig = {
   url: "https://aidank-cy.github.io/Aidank-portfolio",
   githubUsername: "Aidank-cy",
   intro:
-    "CS grad student at SJTU. This entire site was vibe coded — architecture, components, deployment, all of it.",
+    "I don't write code. I architect the Artificial Intelligence that does.",
   about:
-    "CS grad student at Shanghai Jiao Tong University. Into frontend development and developer tools. This site is a vibe coding experiment — every line was built through AI collaboration, from the first prompt to the final deploy.",
-  socials: [
+    "CS grad student at Shanghai Jiao Tong University. This site is a harness engineering project — learning how to craft prompts, set constraints, and build feedback loops that let AI write every line of code, clean, error-free, and up to standard. Zero human-written code, from architecture to deployment." ,
+    socials: [
     {
       label: "GitHub",
       href: "https://github.com/Aidank-cy",

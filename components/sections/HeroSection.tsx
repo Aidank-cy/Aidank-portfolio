@@ -20,7 +20,7 @@ const items = [
     className: "mt-6",
     content: (
       <h1 className="max-w-5xl font-display text-5xl font-medium tracking-[-0.06em] text-balance text-foreground sm:text-6xl lg:text-[5.5rem]">
-        A portfolio site, built entirely with AI.
+        Zero human-written code. Every line, prompted.
       </h1>
     ),
   },
