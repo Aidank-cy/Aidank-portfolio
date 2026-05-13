@@ -12,7 +12,7 @@ type ButtonProps = {
 
 const variants = {
   primary:
-    "bg-accent text-accent-foreground hover:translate-y-[-1px] hover:shadow-[0_18px_45px_rgba(85,124,250,0.28)]",
+    "border border-border bg-panel text-foreground hover:translate-y-[-1px]",
   secondary:
     "border border-border bg-panel text-foreground hover:border-accent hover:text-accent",
   ghost: "text-muted-foreground hover:text-foreground",
