@@ -17,6 +17,7 @@ concurrency:
 
 jobs:
   build:
+    if: github.repository == 'Aidank-cy/Aidank-portfolio'
     runs-on: ubuntu-latest
 
     steps:
