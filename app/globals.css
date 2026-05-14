@@ -1,7 +1,8 @@
 @import "tailwindcss";
 @plugin "@tailwindcss/typography";
 
-:root {
+:root,
+html.light {
   color-scheme: light;
   --background: #f5f4ef;
   --foreground: #101828;
@@ -25,18 +26,6 @@
     --accent-foreground: #edf2ff;
     --ring: rgba(124, 152, 255, 0.34);
   }
-}
-
-html.light {
-  color-scheme: light;
-  --background: #f5f4ef;
-  --foreground: #101828;
-  --muted-foreground: #4b5565;
-  --panel: rgba(255, 255, 255, 0.8);
-  --border: rgba(16, 24, 40, 0.1);
-  --accent: #557cfa;
-  --accent-foreground: #f8fbff;
-  --ring: rgba(85, 124, 250, 0.28);
 }
 
 html.dark {

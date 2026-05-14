@@ -32,6 +32,8 @@
 - Framer Motion is the required default animation system for page load, scroll reveal, hover, and page transitions.
 - Do not introduce another animation library for standard UI motion work.
 - In this App Router codebase, keep Framer Motion behind small client boundaries and prefer client-side loading helpers when direct top-level imports cause Next development chunk instability.
+- For simple single-element wrappers that only switch between static HTML and one motion element, prefer reusing `components/ui/Motion.tsx` instead of duplicating the `useFramerMotion` and reduced-motion branch in each component.
+- Keep explicit local motion logic when a component coordinates `AnimatePresence`, multiple motion elements, or modal-style interaction behavior.
 - Any motion-heavy interaction must check `prefers-reduced-motion` and provide a reduced or disabled path.
 - Modal and lightbox-style interactions must support keyboard dismissal and should allow overlay click to close.
 - Motion should remain restrained and should not override usability or readability.

@@ -8,7 +8,7 @@
   - `projects/page.tsx`
   - `projects/[slug]/page.tsx`
 - `components/ui/`
-  - Button, AvatarModal, FloatingPanel, Tag, and other primitives
+  - Motion, Button, AvatarModal, FloatingPanel, Tag, and other primitives
 - `components/layout/`
   - Header, Footer, Container, and shell-level components
 - `components/sections/`

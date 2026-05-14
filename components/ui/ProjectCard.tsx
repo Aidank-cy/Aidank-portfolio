@@ -1,8 +1,8 @@
 "use client";
 
 import Link from "next/link";
+import { Motion } from "@/components/ui/Motion";
 import type { ProjectSummary } from "@/lib/types";
-import { useFramerMotion, usePrefersReducedMotion } from "@/lib/useFramerMotion";
 import { formatDate, formatNumber } from "@/lib/utils";
 
 type ProjectCardProps = {
@@ -10,9 +10,6 @@ type ProjectCardProps = {
 };
 
 export function ProjectCard({ project }: ProjectCardProps) {
-  const motionModule = useFramerMotion();
-  const prefersReducedMotion = usePrefersReducedMotion();
-
   const content = (
     <Link
       href={`/projects/${project.slug}`}
@@ -55,23 +52,14 @@ export function ProjectCard({ project }: ProjectCardProps) {
     </Link>
   );
 
-  if (prefersReducedMotion || !motionModule) {
-    return (
-      <article className="group h-full rounded-[2rem] border border-border bg-panel shadow-card backdrop-blur-sm">
-        {content}
-      </article>
-    );
-  }
-
-  const MotionArticle = motionModule.motion.article;
-
   return (
-    <MotionArticle
+    <Motion
+      as="article"
       whileHover={{ y: -4, scale: 1.01 }}
       transition={{ duration: 0.24, ease: "easeOut" }}
       className="group h-full rounded-[2rem] border border-border bg-panel shadow-card backdrop-blur-sm"
     >
       {content}
-    </MotionArticle>
+    </Motion>
   );
 }

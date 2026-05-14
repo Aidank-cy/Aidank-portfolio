@@ -24,7 +24,7 @@ export function Header() {
             <Button href="/projects" variant="ghost">
               Projects
             </Button>
-            <Button href={siteConfig.socials[0].href} variant="ghost" external>
+            <Button href={siteConfig.githubUrl} variant="ghost" external>
               GitHub
             </Button>
           </nav>

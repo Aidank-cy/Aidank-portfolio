@@ -7,16 +7,25 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+## [0.2.0] - 2026-05-14
+
 ### Added
 - Harness scaffolding under `.harness/`, `hooks/`, and `skills/` for repeatable AI-assisted work.
 - Cross-tool instruction entry points for Claude, Cursor, and GitHub Copilot.
 - A dedicated GitHub Actions quality gate for lint, typecheck, and static build verification.
 
 ### Changed
+- Cleaned up README content to remove stale workflow references and keep the editing guidance inline.
+- Added `siteConfig.githubUrl` and updated the header GitHub link to avoid relying on `socials[0]`.
+- Deduplicated global light-theme CSS variables so light-mode tokens are defined in one place.
+- Reused the shared `Motion` wrapper in `FadeIn` and `ProjectCard`, and documented the simpler motion-wrapper rule in `.project-rules`.
 - Root agent guidance now reflects the repo's actual static export, GitHub data, and validation boundaries.
 - Project command documentation now includes the TypeScript validation step and build expectations.
 - Public-repo hygiene now excludes local TypeScript build info and mutable harness runtime logs from future commits.
 - Default ignore rules now also cover common local editor folders, coverage output, deployment state, and package-manager debug logs.
+
+### Fixed
+- GitHub project fetching now degrades gracefully when individual repository, README, or language API requests fail during static generation.
 
 ## [0.1.0] - 2026-05-13
 

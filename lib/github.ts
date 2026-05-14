@@ -66,6 +66,10 @@ const getRepoReadme = cache(async (repo: string) => {
   return fetchGitHubText(`/repos/${repo}/readme`);
 });
 
+function getErrorMessage(error: unknown) {
+  return error instanceof Error ? error.message : String(error);
+}
+
 function toProjectSummary(
   config: ProjectConfig,
   repo: GitHubRepoResponse,
@@ -112,13 +116,23 @@ export const getAllProjects = cache(async () => {
     [...projectConfigs]
       .sort((left, right) => left.order - right.order)
       .map(async (config) => {
-        const repo = await getRepo(config.repo);
+        try {
+          const repo = await getRepo(config.repo);
 
-        return toProjectSummary(config, repo);
+          return toProjectSummary(config, repo);
+        } catch (error) {
+          console.warn(
+            `Skipping repository ${config.repo}: ${getErrorMessage(error)}`,
+          );
+
+          return null;
+        }
       }),
   );
 
-  return summaries;
+  return summaries.filter(
+    (summary): summary is ProjectSummary => summary !== null,
+  );
 });
 
 export const getFeaturedProjects = cache(async () => {
@@ -135,10 +149,32 @@ export const getProjectBySlug = cache(async (slug: string) => {
   }
 
   const [repo, readme, languageMap] = await Promise.all([
-    getRepo(config.repo),
-    getRepoReadme(config.repo),
-    getRepoLanguages(config.repo),
+    getRepo(config.repo).catch((error) => {
+      console.warn(
+        `Failed to fetch repository ${config.repo}: ${getErrorMessage(error)}`,
+      );
+
+      return null;
+    }),
+    getRepoReadme(config.repo).catch((error) => {
+      console.warn(
+        `Failed to fetch README for ${config.repo}: ${getErrorMessage(error)}`,
+      );
+
+      return null;
+    }),
+    getRepoLanguages(config.repo).catch((error) => {
+      console.warn(
+        `Failed to fetch languages for ${config.repo}: ${getErrorMessage(error)}`,
+      );
+
+      return {} as GitHubLanguageResponse;
+    }),
   ]);
+
+  if (!repo) {
+    return null;
+  }
 
   const summary = toProjectSummary(config, repo);
 
