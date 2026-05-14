@@ -1,0 +1,30 @@
+name: Sync to public repo
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Remove private files
+        run: |
+          rm -rf AGENTS.md CLAUDE.md EDITING.md CHANGELOG.md
+          rm -rf .project-rules .harness .cursor skills hooks
+          rm -f .github/copilot-instructions.md
+          rm -f .github/workflows/ai-quality-gate.yml
+          rm -f .github/workflows/sync-public.yml
+
+      - name: Push to public repo
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add -A
+          git commit -m "sync: update from dev" --allow-empty
+          git remote add public https://x-access-token:${{ secrets.PUBLIC_REPO_TOKEN }}@github.com/Aidank-cy/Aidank-portfolio.git
+          git push public HEAD:main --force
