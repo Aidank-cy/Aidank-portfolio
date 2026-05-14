@@ -21,10 +21,12 @@ jobs:
           rm -f .github/workflows/sync-public.yml
 
       - name: Push to public repo
+        env:
+          TOKEN: ${{ secrets.PUBLIC_REPO_TOKEN }}
         run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git config user.name "Aidank-cy"
+          git config user.email "Aidank-cy@users.noreply.github.com"
           git add -A
           git commit -m "sync: update from dev" --allow-empty
-          git remote add public https://x-access-token:${{ secrets.PUBLIC_REPO_TOKEN }}@github.com/Aidank-cy/Aidank-portfolio.git
+          git remote add public https://Aidank-cy:${TOKEN}@github.com/Aidank-cy/Aidank-portfolio.git
           git push public HEAD:main --force
