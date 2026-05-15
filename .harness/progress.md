@@ -7,23 +7,24 @@ _This file is read at the start of each agent session and updated at the end. It
 - 2026-05-15: Added `CHANGELOG.md` entries under `## [Unreleased]` for the README refresh and progress-tracking restoration.
 - 2026-05-15: Restored `.harness/progress.md` to resume cross-session project tracking.
 - 2026-05-15: Updated the private-repo ignore and public sync rules so harness runtime notes stay version-controlled privately but never reach the public mirror.
+- 2026-05-15: Merged the navigation active-state feature and `/projects` Open Graph metadata fix into `main`.
 
 ### In progress
-- Validate the `/projects` metadata fix and navigation active-state feature before creating the local commit.
+- Diagnose and fix the intermittent empty project list on `/projects`.
 
 ### Decisions made
-- Current working branch is `feat/nav-active-projects-og`.
-- `main` tracks `origin/main` at commit `9722ada`.
+- Current working branch is `fix/projects-list-stability`.
+- `main` tracks `origin/main` at commit `9840bfe`.
 - `origin` points to `https://github.com/Aidank-cy/Aidank-portfolio-dev.git`.
 - The latest released version remains `0.2.0` dated `2026-05-14`.
 - `.harness/progress.md` and future `.harness/learning-log.md` entries are now intended to be version-controlled in the private repo.
 - The public sync workflow still strips `.harness/`, `.project-rules/`, agent config, internal docs, and private-only workflows before mirroring.
-- The current local worktree contains uncommitted changes to `app/projects/page.tsx`, `components/layout/Header.tsx`, `CHANGELOG.md`, and `.harness/progress.md`.
+- The current local worktree should only contain the progress refresh before the `/projects` stability fix begins.
 
 ### Next session should
-1. Run `npm run lint`, `npm run typecheck`, and `npm run build`.
-2. Create one atomic local commit for the `/projects` metadata fix and nav active-state feature.
-3. Push the feature branch to `origin` and open a PR when the change is ready for review.
+1. Verify the cause of the intermittent empty `/projects` list across initial load, hydration, and history navigation.
+2. Run `npm run lint`, `npm run typecheck`, and `npm run build` after the stability fix.
+3. Push the fix branch to `origin` and open a PR when the change is ready for review.
 
 ## 2026-05-15 — Refresh portfolio README and restore progress tracking
 - **Status:** Complete
@@ -47,9 +48,9 @@ _This file is read at the start of each agent session and updated at the end. It
 
 ## 2026-05-15 — Fix projects OG metadata and add nav active state
 - **Status:** Complete
-- **Commit:** Not created yet
+- **Commit:** `9840bfe` — `feat: add nav active state and fix projects og metadata`
 - **Changes:** Updated the `/projects` page metadata so its Open Graph title and URL resolve to the actual projects index page, and added route-aware active styling for the Home and Projects links in the header without highlighting the GitHub external link.
 - **CHANGELOG:** Added: Add active-state highlighting to the Home and Projects navigation links based on the current route while keeping the GitHub external link neutral. Fixed: Fix the `/projects` Open Graph metadata so its title and URL reflect the actual projects index page instead of the site root defaults.
 - **Rules updated:** No
 - **Follow-ups:**
-  - Push the feature branch and open a PR after verification passes.
+  - Monitor the `/projects` page for list stability after merge.
