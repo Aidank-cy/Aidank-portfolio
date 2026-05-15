@@ -2,12 +2,18 @@ import type { Metadata } from "next";
 import { Container } from "@/components/layout/Container";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ProjectsExplorer } from "@/components/sections/ProjectsExplorer";
+import { siteConfig } from "@/config/site";
 import { getAllProjects } from "@/lib/github";
 
 export const metadata: Metadata = {
   title: "Projects",
   description:
     "All of Aidank's GitHub projects.",
+  openGraph: {
+    title: `Projects | ${siteConfig.name}`,
+    description: "All of Aidank's GitHub projects.",
+    url: "/projects/",
+  },
 };
 
 export default async function ProjectsPage() {

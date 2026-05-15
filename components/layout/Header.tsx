@@ -1,10 +1,34 @@
+"use client";
+
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { Container } from "@/components/layout/Container";
 import { Button } from "@/components/ui/Button";
 import { AvatarModal } from "@/components/ui/AvatarModal";
 import { siteConfig } from "@/config/site";
+import { basePath } from "@/lib/basePath";
+import { cn } from "@/lib/utils";
+
+const navLinkClasses =
+  "inline-flex items-center justify-center rounded-full px-5 py-3 text-sm font-medium tracking-[0.02em] transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring";
+
+function normalizePathname(pathname: string) {
+  if (!pathname) {
+    return "/";
+  }
+
+  if (basePath && pathname.startsWith(basePath)) {
+    const normalized = pathname.slice(basePath.length);
+    return normalized ? normalized : "/";
+  }
+
+  return pathname;
+}
 
 export function Header() {
+  const pathname = usePathname();
+  const currentPath = normalizePathname(pathname);
+
   return (
     <header className="sticky top-0 z-40">
       <Container className="pt-4 md:pt-6">
@@ -18,12 +42,36 @@ export function Header() {
           </div>
 
           <nav className="hidden items-center gap-2 md:flex">
-            <Button href="/" variant="ghost">
+            <Link
+              href="/"
+              aria-current={currentPath === "/" ? "page" : undefined}
+              className={cn(
+                navLinkClasses,
+                currentPath === "/"
+                  ? "bg-background text-foreground shadow-sm ring-1 ring-border"
+                  : "text-muted-foreground hover:bg-background/70 hover:text-foreground",
+              )}
+            >
               Home
-            </Button>
-            <Button href="/projects" variant="ghost">
+            </Link>
+            <Link
+              href="/projects"
+              aria-current={
+                currentPath === "/projects" ||
+                currentPath.startsWith("/projects/")
+                  ? "page"
+                  : undefined
+              }
+              className={cn(
+                navLinkClasses,
+                currentPath === "/projects" ||
+                  currentPath.startsWith("/projects/")
+                  ? "bg-background text-foreground shadow-sm ring-1 ring-border"
+                  : "text-muted-foreground hover:bg-background/70 hover:text-foreground",
+              )}
+            >
               Projects
-            </Button>
+            </Link>
             <Button href={siteConfig.githubUrl} variant="ghost" external>
               GitHub
             </Button>

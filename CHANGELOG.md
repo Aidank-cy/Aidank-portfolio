@@ -7,11 +7,17 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Added
+- Add active-state highlighting to the Home and Projects navigation links based on the current route while keeping the GitHub external link neutral.
+
 ### Changed
 - Refresh the portfolio README with a polished visitor-facing overview, live site link, stack summary, route map, and customization guidance.
 - Restore `.harness/progress.md` so cross-session project state and pending follow-ups are tracked again.
 - Track harness runtime notes in the private repo instead of ignoring them locally.
 - Clarify the public sync workflow so internal harness files, process docs, and private automation are stripped before mirroring.
+
+### Fixed
+- Fix the `/projects` Open Graph metadata so its title and URL reflect the actual projects index page instead of the site root defaults.
 
 ## [0.2.0] - 2026-05-14
 
