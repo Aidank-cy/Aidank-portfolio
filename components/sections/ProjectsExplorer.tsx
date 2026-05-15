@@ -1,9 +1,8 @@
 "use client";
 
-import { useState } from "react";
+import { useMemo, useState } from "react";
 import { FadeIn } from "@/components/ui/FadeIn";
 import { ProjectCard } from "@/components/ui/ProjectCard";
-import { useFramerMotion, usePrefersReducedMotion } from "@/lib/useFramerMotion";
 import type { ProjectSummary } from "@/lib/types";
 import { cn } from "@/lib/utils";
 
@@ -12,22 +11,28 @@ type ProjectsExplorerProps = {
 };
 
 export function ProjectsExplorer({ projects }: ProjectsExplorerProps) {
-  const languages = [
-    "All",
-    ...new Set(
-      projects
-        .map((project) => project.primaryLanguage)
-        .filter((language): language is string => Boolean(language)),
-    ),
-  ];
+  const languages = useMemo(
+    () => [
+      "All",
+      ...new Set(
+        projects
+          .map((project) => project.primaryLanguage)
+          .filter((language): language is string => Boolean(language)),
+      ),
+    ],
+    [projects],
+  );
   const [activeLanguage, setActiveLanguage] = useState("All");
-  const motionModule = useFramerMotion();
-  const prefersReducedMotion = usePrefersReducedMotion();
+  const selectedLanguage = languages.includes(activeLanguage)
+    ? activeLanguage
+    : "All";
 
   const filteredProjects =
-    activeLanguage === "All"
+    selectedLanguage === "All"
       ? projects
-      : projects.filter((project) => project.primaryLanguage === activeLanguage);
+      : projects.filter(
+          (project) => project.primaryLanguage === selectedLanguage,
+        );
 
   const projectsGrid = (
     <>
@@ -44,7 +49,7 @@ export function ProjectsExplorer({ projects }: ProjectsExplorerProps) {
       <FadeIn>
         <div className="flex flex-wrap gap-3">
           {languages.map((language) => {
-            const active = language === activeLanguage;
+            const active = language === selectedLanguage;
 
             return (
               <button
@@ -65,18 +70,9 @@ export function ProjectsExplorer({ projects }: ProjectsExplorerProps) {
         </div>
       </FadeIn>
 
-      {prefersReducedMotion || !motionModule ? (
-        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
-          {projectsGrid}
-        </div>
-      ) : (
-        <motionModule.motion.div
-          layout
-          className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3"
-        >
-          {projectsGrid}
-        </motionModule.motion.div>
-      )}
+      <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+        {projectsGrid}
+      </div>
     </div>
   );
 }

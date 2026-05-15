@@ -8,9 +8,10 @@ _This file is read at the start of each agent session and updated at the end. It
 - 2026-05-15: Restored `.harness/progress.md` to resume cross-session project tracking.
 - 2026-05-15: Updated the private-repo ignore and public sync rules so harness runtime notes stay version-controlled privately but never reach the public mirror.
 - 2026-05-15: Merged the navigation active-state feature and `/projects` Open Graph metadata fix into `main`.
+- 2026-05-15: Refreshed `.harness/progress.md` to match the current branch, upstream, and merged project state before starting the next fix.
 
 ### In progress
-- Diagnose and fix the intermittent empty project list on `/projects`.
+- Verify the `/projects` list stability fix before creating the second local commit on this branch.
 
 ### Decisions made
 - Current working branch is `fix/projects-list-stability`.
@@ -19,11 +20,11 @@ _This file is read at the start of each agent session and updated at the end. It
 - The latest released version remains `0.2.0` dated `2026-05-14`.
 - `.harness/progress.md` and future `.harness/learning-log.md` entries are now intended to be version-controlled in the private repo.
 - The public sync workflow still strips `.harness/`, `.project-rules/`, agent config, internal docs, and private-only workflows before mirroring.
-- The current local worktree should only contain the progress refresh before the `/projects` stability fix begins.
+- The `/projects` stability fix now changes `lib/github.ts`, `components/sections/ProjectsExplorer.tsx`, `CHANGELOG.md`, and `.harness/progress.md`.
 
 ### Next session should
-1. Verify the cause of the intermittent empty `/projects` list across initial load, hydration, and history navigation.
-2. Run `npm run lint`, `npm run typecheck`, and `npm run build` after the stability fix.
+1. Run `npm run lint`, `npm run typecheck`, and `npm run build` for the `/projects` stability fix.
+2. Create the second local commit on `fix/projects-list-stability`.
 3. Push the fix branch to `origin` and open a PR when the change is ready for review.
 
 ## 2026-05-15 — Refresh portfolio README and restore progress tracking
@@ -54,3 +55,12 @@ _This file is read at the start of each agent session and updated at the end. It
 - **Rules updated:** No
 - **Follow-ups:**
   - Monitor the `/projects` page for list stability after merge.
+
+## 2026-05-15 — Stabilize the /projects list across hydration and navigation
+- **Status:** Complete
+- **Commit:** Not created yet
+- **Changes:** Reworked the projects list to recover to the full dataset when a stale language filter survives navigation, removed the extra animated grid wrapper from the explorer, and made static project summaries build from one cached snapshot so deploys fail instead of exporting partial project data.
+- **CHANGELOG:** Changed: Fail static project generation instead of silently exporting partial repository lists when configured GitHub data cannot be resolved at build time. Fixed: Fix the `/projects` page so project cards remain visible across first load, hydration, and history navigation instead of intermittently collapsing to an empty filtered list.
+- **Rules updated:** No
+- **Follow-ups:**
+  - Push the fix branch and open a PR after verification passes.

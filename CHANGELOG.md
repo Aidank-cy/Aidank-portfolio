@@ -15,9 +15,11 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 - Restore `.harness/progress.md` so cross-session project state and pending follow-ups are tracked again.
 - Track harness runtime notes in the private repo instead of ignoring them locally.
 - Clarify the public sync workflow so internal harness files, process docs, and private automation are stripped before mirroring.
+- Fail static project generation instead of silently exporting partial repository lists when configured GitHub data cannot be resolved at build time.
 
 ### Fixed
 - Fix the `/projects` Open Graph metadata so its title and URL reflect the actual projects index page instead of the site root defaults.
+- Fix the `/projects` page so project cards remain visible across first load, hydration, and history navigation instead of intermittently collapsing to an empty filtered list.
 
 ## [0.2.0] - 2026-05-14
 

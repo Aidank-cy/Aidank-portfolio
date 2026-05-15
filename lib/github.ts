@@ -1,4 +1,5 @@
 import { cache } from "react";
+import { unstable_cache } from "next/cache";
 import { projects as projectConfigs } from "@/config/projects";
 import type {
   GitHubLanguageResponse,
@@ -112,27 +113,7 @@ function toLanguageBreakdown(languageMap: GitHubLanguageResponse) {
 }
 
 export const getAllProjects = cache(async () => {
-  const summaries = await Promise.all(
-    [...projectConfigs]
-      .sort((left, right) => left.order - right.order)
-      .map(async (config) => {
-        try {
-          const repo = await getRepo(config.repo);
-
-          return toProjectSummary(config, repo);
-        } catch (error) {
-          console.warn(
-            `Skipping repository ${config.repo}: ${getErrorMessage(error)}`,
-          );
-
-          return null;
-        }
-      }),
-  );
-
-  return summaries.filter(
-    (summary): summary is ProjectSummary => summary !== null,
-  );
+  return getCachedProjectSummaries();
 });
 
 export const getFeaturedProjects = cache(async () => {
@@ -188,3 +169,34 @@ export const getProjectBySlug = cache(async (slug: string) => {
 
   return detail;
 });
+
+const getCachedProjectSummaries = unstable_cache(
+  async () => {
+    const sortedConfigs = [...projectConfigs].sort(
+      (left, right) => left.order - right.order,
+    );
+
+    const summaries = await Promise.all(
+      sortedConfigs.map(async (config) => {
+        try {
+          const repo = await getRepo(config.repo);
+
+          return toProjectSummary(config, repo);
+        } catch (error) {
+          throw new Error(
+            `Failed to fetch configured repository ${config.repo}: ${getErrorMessage(error)}`,
+          );
+        }
+      }),
+    );
+
+    if (sortedConfigs.length > 0 && summaries.length === 0) {
+      throw new Error(
+        "No configured GitHub projects were resolved during static generation.",
+      );
+    }
+
+    return summaries;
+  },
+  ["github-project-summaries"],
+);
