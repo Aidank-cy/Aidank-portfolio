@@ -7,6 +7,12 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ## [Unreleased]
 
+### Changed
+- Refresh the portfolio README with a polished visitor-facing overview, live site link, stack summary, route map, and customization guidance.
+- Restore `.harness/progress.md` so cross-session project state and pending follow-ups are tracked again.
+- Track harness runtime notes in the private repo instead of ignoring them locally.
+- Clarify the public sync workflow so internal harness files, process docs, and private automation are stripped before mirroring.
+
 ## [0.2.0] - 2026-05-14
 
 ### Added

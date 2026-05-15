@@ -1,59 +1,71 @@
 # Aidank Portfolio
 
-Personal project showcase, vibe coded with AI. Zero human-written code.
+A minimal, GitHub-driven personal portfolio — vibe coded with AI, zero human-written code.
 
-## What This Is
+Live site: https://aidank-cy.github.io/Aidank-portfolio
 
-A harness engineering project — learning how to craft prompts, set constraints, and build feedback loops that let AI write every line of code, from architecture to deployment.
+## ✨ What Is This
 
-The site pulls repository data from the GitHub API at build time and exports as a static site to GitHub Pages.
+Aidank Portfolio is a statically generated personal portfolio built with Next.js and deployed to GitHub Pages. It pulls repository data from the GitHub API at build time, with no CMS, no database, and no runtime backend. The visual direction is clean and product-focused, drawing inspiration from Apple, Linear, and Vercel.
 
-## Stack
+## 🛠 Tech Stack
 
-- Next.js 15 (App Router, static export)
-- TypeScript
-- Tailwind CSS v4
-- Framer Motion
-- React Markdown
+| Technology | Role |
+| --- | --- |
+| Next.js 15 (App Router) | Application framework and routing |
+| TypeScript | Typed application code |
+| Tailwind CSS v4 | Styling system |
+| Framer Motion | Motion and interaction |
+| React Markdown + remark-gfm | README rendering with GitHub Flavored Markdown support |
+| GitHub Pages static export | Static hosting target |
+| GitHub Actions CI/CD | Build and deployment automation |
 
-## Pages
+## 📄 Pages
 
-- `/` — hero, featured projects, about
-- `/projects` — all repositories, language filter
-- `/projects/[slug]` — repo detail, README rendering, stats
+- `/` — hero, featured projects, about, and footer links
+- `/projects` — full project list with language filter
+- `/projects/[slug]` — project detail page with README rendering, stats, and language breakdown
 
-## Local Development
+## 🚀 Getting Started
 
 ```bash
+git clone https://github.com/Aidank-cy/Aidank-portfolio.git
+cd Aidank-portfolio
 npm install
 npm run dev
-npm run typecheck
 ```
 
-Open `http://localhost:3000`.
-
-## Build & Deploy
+## 📦 Build & Deploy
 
 ```bash
 npm run build
 ```
 
-Static output goes to `out/`. Push to `main` and GitHub Actions handles the rest.
+The project exports a static site into `out/`. Deployment is handled automatically by GitHub Actions whenever changes are pushed to `main`.
 
-## Editing Content
+## 🎛 Customization
 
-Quick version:
-- `config/site.ts` — site copy, avatar path, and social links
-- `config/projects.ts` — add, remove, feature, or reorder projects
-- `public/` — static assets such as the clickable header avatar
-- Edit the GitHub repo itself to change description, README, or homepage link
+- `config/site.ts` controls site copy and social links.
+- `config/projects.ts` controls the project list and featured status.
+- Project metadata is pulled from GitHub at build time.
+- Editing guidance is available in [EDITING.md](./EDITING.md).
 
-## Project Structure
+## 🧭 Project Structure
 
 ```text
-app/           # pages and layouts
-components/    # layout, sections, ui
-config/        # site copy and project list
-lib/           # GitHub API, types, utils
-public/        # static assets such as avatar images
+app/
+components/
+  layout/
+  sections/
+  ui/
+config/
+lib/
 ```
+
+## 🤖 AI-Built
+
+This codebase was created through AI-assisted vibe coding, with the portfolio experience, UI, and implementation generated without hand-written application code.
+
+## 📄 License
+
+Released under the [MIT License](./LICENSE).

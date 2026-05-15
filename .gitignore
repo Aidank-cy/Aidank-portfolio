@@ -27,6 +27,5 @@ pnpm-debug.log*
 # Local deployment tooling state
 .vercel
 
-# Mutable local harness runtime notes
-.harness/progress.md
-.harness/learning-log.md
+# Harness runtime notes are versioned in the private repo
+# and stripped from the public mirror by sync-public.yml.

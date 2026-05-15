@@ -15,9 +15,13 @@ jobs:
 
       - name: Remove private files
         run: |
-          rm -rf AGENTS.md CLAUDE.md EDITING.md CHANGELOG.md
+          # AI/agent instructions and private editing guidance stay in the dev repo.
+          rm -rf AGENTS.md CLAUDE.md EDITING.md
           rm -rf .project-rules .harness .cursor skills hooks
           rm -f .github/copilot-instructions.md
+          # Internal project tracking stays private even when version-controlled.
+          rm -f CHANGELOG.md TODO.md
+          # Private-only automation should not be mirrored to the public repo.
           rm -f .github/workflows/ai-quality-gate.yml
           rm -f .github/workflows/sync-public.yml
 
