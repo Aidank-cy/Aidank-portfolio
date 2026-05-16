@@ -29,9 +29,18 @@ jobs:
         env:
           TOKEN: ${{ secrets.PUBLIC_REPO_TOKEN }}
         run: |
-          git config user.name "Aidank-cy"
-          git config user.email "Aidank-cy@users.noreply.github.com"
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+          # Stage deletions
           git add -A
-          git commit -m "sync: update from dev" --allow-empty
-          git remote add public https://Aidank-cy:${TOKEN}@github.com/Aidank-cy/Aidank-portfolio.git
+
+          # Only commit and push if there are actual changes
+          if git diff --cached --quiet; then
+            echo "No changes to sync, skipping."
+            exit 0
+          fi
+
+          git commit -m "sync: update from dev ($(date -u +%Y-%m-%dT%H:%M:%SZ))"
+          git remote add public https://x-access-token:${TOKEN}@github.com/Aidank-cy/Aidank-portfolio.git
           git push public HEAD:main --force
