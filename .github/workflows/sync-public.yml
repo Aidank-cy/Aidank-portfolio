@@ -25,6 +25,17 @@ jobs:
           rm -f .github/workflows/ai-quality-gate.yml
           rm -f .github/workflows/sync-public.yml
 
+      - name: Debug auth
+        env:
+          TOKEN: ${{ secrets.PUBLIC_REPO_TOKEN }}
+        run: |
+          echo "Token length: ${#TOKEN}"
+          echo "Token prefix: ${TOKEN:0:4}"
+          STATUS=$(curl -s -o /dev/null -w "%{http_code}" \
+            -H "Authorization: Bearer ${TOKEN}" \
+            https://api.github.com/repos/Aidank-cy/Aidank-portfolio)
+          echo "API response: ${STATUS}"
+
       - name: Push to public repo
         run: |
           git config user.name "github-actions[bot]"
