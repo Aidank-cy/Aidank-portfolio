@@ -9,6 +9,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 
 ### Added
 - Add active-state highlighting to the Home and Projects navigation links based on the current route while keeping the GitHub external link neutral.
+- Add a sliding Framer Motion indicator for the active Home and Projects navigation pill.
 
 ### Changed
 - Refresh the portfolio README with a polished visitor-facing overview, live site link, stack summary, route map, and customization guidance.
@@ -20,6 +21,7 @@ and this project adheres to [Semantic Versioning](https://semver.org).
 ### Fixed
 - Fix the `/projects` Open Graph metadata so its title and URL reflect the actual projects index page instead of the site root defaults.
 - Fix the `/projects` page so project cards remain visible across first load, hydration, and history navigation instead of intermittently collapsing to an empty filtered list.
+- Fix project detail pages so long READMEs scroll inside a consistent-height content panel instead of changing the overall page length.
 
 ## [0.2.0] - 2026-05-14
 

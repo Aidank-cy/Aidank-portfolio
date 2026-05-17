@@ -9,23 +9,24 @@ _This file is read at the start of each agent session and updated at the end. It
 - 2026-05-15: Updated the private-repo ignore and public sync rules so harness runtime notes stay version-controlled privately but never reach the public mirror.
 - 2026-05-15: Merged the navigation active-state feature and `/projects` Open Graph metadata fix into `main`.
 - 2026-05-15: Refreshed `.harness/progress.md` to match the current branch, upstream, and merged project state before starting the next fix.
+- 2026-05-17: Added a constrained README scroll panel on project detail pages and animated the desktop header nav active pill.
 
 ### In progress
-- Verify the `/projects` list stability fix before creating the second local commit on this branch.
+- Commit the project detail README scroll and header nav indicator fix, then hand off push/PR steps.
 
 ### Decisions made
-- Current working branch is `fix/projects-list-stability`.
+- Current working branch is `fix/readme-scroll-nav-indicator`.
 - `main` tracks `origin/main` at commit `9840bfe`.
 - `origin` points to `https://github.com/Aidank-cy/Aidank-portfolio-dev.git`.
 - The latest released version remains `0.2.0` dated `2026-05-14`.
 - `.harness/progress.md` and future `.harness/learning-log.md` entries are now intended to be version-controlled in the private repo.
 - The public sync workflow still strips `.harness/`, `.project-rules/`, agent config, internal docs, and private-only workflows before mirroring.
-- The `/projects` stability fix now changes `lib/github.ts`, `components/sections/ProjectsExplorer.tsx`, `CHANGELOG.md`, and `.harness/progress.md`.
+- The README scroll and nav indicator fix changes `app/projects/[slug]/page.tsx`, `components/layout/Header.tsx`, `app/globals.css`, `CHANGELOG.md`, and `.harness/progress.md`.
 
 ### Next session should
-1. Run `npm run lint`, `npm run typecheck`, and `npm run build` for the `/projects` stability fix.
-2. Create the second local commit on `fix/projects-list-stability`.
-3. Push the fix branch to `origin` and open a PR when the change is ready for review.
+1. Push `fix/readme-scroll-nav-indicator` to `origin`.
+2. Open a PR for the README scroll and nav indicator fix.
+3. After merge, return to `main`, pull the latest changes, and delete the local feature branch.
 
 ## 2026-05-15 — Refresh portfolio README and restore progress tracking
 - **Status:** Complete
@@ -64,3 +65,12 @@ _This file is read at the start of each agent session and updated at the end. It
 - **Rules updated:** No
 - **Follow-ups:**
   - Push the fix branch and open a PR after verification passes.
+
+## 2026-05-17 — Normalize README scroll and animate header nav
+- **Status:** Complete
+- **Commit:** Pending
+- **Changes:** Added a fixed-height internal README scroll panel with a bottom fade and minimal scrollbar styling, and replaced the desktop header active-pill background with a Framer Motion shared-layout indicator.
+- **CHANGELOG:** Added: Add a sliding Framer Motion indicator for the active Home and Projects navigation pill. Fixed: Fix project detail pages so long READMEs scroll inside a consistent-height content panel instead of changing the overall page length.
+- **Rules updated:** No
+- **Follow-ups:**
+  - Push the feature branch and open a PR after the local commit is created.

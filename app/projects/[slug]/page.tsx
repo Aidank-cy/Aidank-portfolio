@@ -188,10 +188,18 @@ export default async function ProjectDetailPage({
             </div>
 
             {project.readme ? (
-              <div className="prose prose-neutral mt-10 max-w-none prose-headings:font-display prose-headings:tracking-[-0.03em] prose-a:text-accent prose-code:rounded prose-code:bg-border prose-code:px-1 prose-code:py-0.5 prose-pre:rounded-3xl prose-pre:border prose-pre:border-border prose-pre:bg-slate-950 prose-pre:text-slate-100 dark:prose-invert">
-                <ReactMarkdown remarkPlugins={[remarkGfm]}>
-                  {project.readme}
-                </ReactMarkdown>
+              <div className="relative mt-10">
+                <div className="scrollbar-thin max-h-[70vh] overflow-y-auto pr-3 pb-10">
+                  <div className="prose prose-neutral max-w-none prose-headings:font-display prose-headings:tracking-[-0.03em] prose-a:text-accent prose-code:rounded prose-code:bg-border prose-code:px-1 prose-code:py-0.5 prose-pre:rounded-3xl prose-pre:border prose-pre:border-border prose-pre:bg-slate-950 prose-pre:text-slate-100 dark:prose-invert">
+                    <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                      {project.readme}
+                    </ReactMarkdown>
+                  </div>
+                </div>
+                <div
+                  aria-hidden="true"
+                  className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-b from-transparent to-panel"
+                />
               </div>
             ) : (
               <p className="mt-10 text-base leading-8 text-muted-foreground">
