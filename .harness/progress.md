@@ -10,23 +10,25 @@ _This file is read at the start of each agent session and updated at the end. It
 - 2026-05-15: Merged the navigation active-state feature and `/projects` Open Graph metadata fix into `main`.
 - 2026-05-15: Refreshed `.harness/progress.md` to match the current branch, upstream, and merged project state before starting the next fix.
 - 2026-05-17: Added a constrained README scroll panel on project detail pages and animated the desktop header nav active pill.
+- 2026-05-17: Committed the README scroll and header nav indicator fix as `8a0f7a0`.
 
 ### In progress
-- Commit the project detail README scroll and header nav indicator fix, then hand off push/PR steps.
+- No active local code changes. Confirm remote sync before starting the next implementation task.
 
 ### Decisions made
-- Current working branch is `fix/readme-scroll-nav-indicator`.
-- `main` tracks `origin/main` at commit `9840bfe`.
+- Current working branch is `main`.
+- `main` tracks the local `origin/main` ref at commit `8a0f7a0`.
 - `origin` points to `https://github.com/Aidank-cy/Aidank-portfolio-dev.git`.
 - The latest released version remains `0.2.0` dated `2026-05-14`.
 - `.harness/progress.md` and future `.harness/learning-log.md` entries are now intended to be version-controlled in the private repo.
 - The public sync workflow still strips `.harness/`, `.project-rules/`, agent config, internal docs, and private-only workflows before mirroring.
 - The README scroll and nav indicator fix changes `app/projects/[slug]/page.tsx`, `components/layout/Header.tsx`, `app/globals.css`, `CHANGELOG.md`, and `.harness/progress.md`.
+- Remote network state was not refreshed during the local status update; verify with `git fetch origin` when network confirmation is needed.
 
 ### Next session should
-1. Push `fix/readme-scroll-nav-indicator` to `origin`.
-2. Open a PR for the README scroll and nav indicator fix.
-3. After merge, return to `main`, pull the latest changes, and delete the local feature branch.
+1. Run `git fetch origin` to confirm whether local `main` still matches the remote.
+2. If `main` is ahead after fetch, push with `git push origin main`.
+3. If `main` is already synchronized, start the next requested task from a clean branch.
 
 ## 2026-05-15 — Refresh portfolio README and restore progress tracking
 - **Status:** Complete
@@ -68,9 +70,10 @@ _This file is read at the start of each agent session and updated at the end. It
 
 ## 2026-05-17 — Normalize README scroll and animate header nav
 - **Status:** Complete
-- **Commit:** Pending
+- **Commit:** `8a0f7a0` — `fix: normalize readme scroll and nav indicator`
 - **Changes:** Added a fixed-height internal README scroll panel with a bottom fade and minimal scrollbar styling, and replaced the desktop header active-pill background with a Framer Motion shared-layout indicator.
 - **CHANGELOG:** Added: Add a sliding Framer Motion indicator for the active Home and Projects navigation pill. Fixed: Fix project detail pages so long READMEs scroll inside a consistent-height content panel instead of changing the overall page length.
 - **Rules updated:** No
 - **Follow-ups:**
-  - Push the feature branch and open a PR after the local commit is created.
+  - Verify remote sync with `git fetch origin`.
+  - Push `main` if the branch is ahead of `origin/main` after fetch.
